@@ -20,7 +20,7 @@ export class ToastUtils {
     switch (type) {
       default:
       case ToastType.Info:
-        // no class
+        cssClass = 'default-toast';
         break;
 
       case ToastType.Success:
@@ -34,7 +34,7 @@ export class ToastUtils {
 
     this.activeToast = await this.toastCtrl.create({
       message,
-      duration: customDuration || (2000 + (message.length * 65)),
+      duration: customDuration || (2000 + (message.length * 30)),
       cssClass,
       position: 'bottom',
       buttons: [

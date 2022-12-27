@@ -15,6 +15,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'world-map',
+    loadChildren: () => import('./modules/world-map/world-map.module').then( m => m.WorldMapPageModule)
+  },
 ];
 
 @NgModule({

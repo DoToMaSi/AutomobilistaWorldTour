@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { BehaviorSubject, Subject, take, takeUntil } from 'rxjs';
 import { DifficultyDescription, DifficultyEnum, DifficultySelect } from 'src/app/shared/utils/enums/difficulty.enum';
 import { RaceLengthDescription, RaceLengthEnum, RaceLengthSelect } from 'src/app/shared/utils/enums/race-length.enum';
@@ -35,7 +36,8 @@ export class DriverFormPage implements OnInit, OnDestroy {
   subscribeSubj = new Subject();
 
   constructor(
-      private route: ActivatedRoute, private driverService: DriverService, private toast: ToastUtils
+      private route: ActivatedRoute, private driverService: DriverService, private toast: ToastUtils,
+      private navCtrl: NavController
     ) {}
 
   ngOnInit() {
@@ -75,10 +77,14 @@ export class DriverFormPage implements OnInit, OnDestroy {
     if (this.driverForm.valid) {
       const driver = this.driverForm.value as Driver;
       if (!driver.id) {
-        // this.driverService.addDriver(driver);
+        this.driverService.addDriver(driver);
+        console.log(driver);
+        this.driverService.setActiveDriver(driver);
         this.toast.success('Driver Created!');
+        this.navCtrl.navigateRoot('world-map');
       } else {
-
+        this.toast.display('Driver Information Saved');
+        this.navCtrl.back();
       }
     } else {
       this.toast.error(`Check the form fields before saving`);

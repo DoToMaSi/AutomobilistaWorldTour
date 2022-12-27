@@ -31,6 +31,11 @@ export class DriverService {
 
   addDriver(driver: Driver) {
     const currentDrivers = this.driversSubj.getValue();
+    currentDrivers.map((driver, index) => {
+      driver.id = (index + 1)
+    })
+
+    driver.id = (currentDrivers.length + 1);
     this.driversSubj.next([...currentDrivers, driver]);
   }
 
