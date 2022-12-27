@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { IonRouterOutlet, NavController } from '@ionic/angular';
 import { BehaviorSubject, Subject, take, takeUntil } from 'rxjs';
 import { DifficultyDescription, DifficultyEnum, DifficultySelect } from 'src/app/shared/utils/enums/difficulty.enum';
 import { RaceLengthDescription, RaceLengthEnum, RaceLengthSelect } from 'src/app/shared/utils/enums/race-length.enum';
@@ -37,7 +37,7 @@ export class DriverFormPage implements OnInit, OnDestroy {
 
   constructor(
       private route: ActivatedRoute, private driverService: DriverService, private toast: ToastUtils,
-      private navCtrl: NavController
+      private navCtrl: NavController, private routerOutlet: IonRouterOutlet
     ) {}
 
   ngOnInit() {
@@ -90,7 +90,11 @@ export class DriverFormPage implements OnInit, OnDestroy {
         this.navCtrl.navigateRoot('world-map');
       } else {
         this.toast.display('Driver Information Saved');
-        this.navCtrl.back();
+        if (this.routerOutlet.canGoBack()) {
+          this.navCtrl.back();
+        } else {
+          this.navCtrl.navigateRoot('world-map');
+        }
       }
     } else {
       this.toast.error(`Check the form fields before saving`);
