@@ -22,3 +22,38 @@ export function DifficultySelect() {
     }
   })
 }
+
+export function DifficultyDescription(difficulty: DifficultyEnum) {
+  switch (difficulty) {
+    default:
+    case DifficultyEnum.Beginner:
+      return {
+        difficulty: '70 - 77%',
+        aggression: 'Low'
+      };
+
+    case DifficultyEnum.Amateur:
+      return {
+        difficulty: '78 - 84%',
+        aggression: 'Low'
+      };
+
+    case DifficultyEnum.Clubman:
+      return {
+        difficulty: '85 - 94%',
+        aggression: 'Low or Medium'
+      };
+
+    case DifficultyEnum.Professional:
+      return {
+        difficulty: '95 - 104%',
+        aggression: 'Low to High'
+      };
+
+    case DifficultyEnum.Veteran:
+      return {
+        difficulty: '95 - 104%',
+        aggression: 'Any (Recommended: Medium or higher)'
+      };
+  }
+}

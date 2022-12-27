@@ -12,11 +12,11 @@
     <ion-card class="driver-form-card">
       <ion-card-content>
         <ion-list class="driver-form-list">
-          <ion-item fill="outline">
+          <ion-item color="primary" fill="outline">
             <ion-label>Name</ion-label>
             <ion-input type="text" formControlName="name"></ion-input>
             <ion-note *ngIf="hasError('name', 'required')" slot="error">Name is required!</ion-note>
-            <ion-note *ngIf="hasError('name', 'minLength')" slot="error">Name must be 3 characters long!</ion-note>
+            <ion-note *ngIf="hasError('name', 'minlength')" slot="error">Name must be 3 characters long!</ion-note>
           </ion-item>
 
           <ion-item fill="outline">
@@ -27,6 +27,25 @@
               </ion-select-option>
             </ion-select>
           </ion-item>
+
+          <ion-item fill="outline">
+            <ion-label>Race Length</ion-label>
+            <ion-select interface="popover" formControlName="raceLength">
+              <ion-select-option *ngFor="let raceLength of raceLengthOptions" [value]="raceLength.value">
+                {{ raceLength.label }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <section class="chosen-parameters-section">
+            <h6><b>Recommended Settings:</b></h6>
+            <label>Keep in mind that these are suggestions and you are free to fine tune them accordingly in-game.</label>
+            <ul>
+              <li><b>Difficulty (In-Game)</b>: {{ difficultyDescription | async }}</li>
+              <li><b>Aggression (In-Game)</b>: {{ aggressionDescription | async }}</li>
+              <li><b>Race Lengths</b>: {{ raceLengthDescription | async }}</li>
+            </ul>
+          </section>
 
           <ion-button fill="outline" color="success" expand="block">
             Save Driver

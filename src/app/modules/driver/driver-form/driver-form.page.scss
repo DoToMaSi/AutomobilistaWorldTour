@@ -18,3 +18,15 @@
     gap: 8px;
   }
 }
+
+.chosen-parameters-section {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  border: 1px solid var(--ion-color-dark);
+  border-radius: 10px;
+
+  h6, ul, li {
+    color: var(--ion-color-dark);
+  }
+}

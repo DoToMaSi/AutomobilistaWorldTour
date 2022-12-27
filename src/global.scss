@@ -27,6 +27,15 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 
+@font-face {
+  font-family: Quicksand;
+  src: url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap"); //change url accordingly
+}
+
 * {
   font-family: 'Quicksand', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+  --ion-font-family: 'Quicksand';
 }
