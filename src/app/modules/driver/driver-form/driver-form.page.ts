@@ -55,6 +55,13 @@ export class DriverFormPage implements OnInit, OnDestroy {
     this.route.params.pipe(take(1)).subscribe((params) => {
       if (params['id']) {
         this.title.next('Edit Driver');
+        const driver = this.driverService.getDriverById(parseInt(params['id'], 10));
+
+        if (driver) {
+          this.driverForm.patchValue({...driver});
+        } else {
+          this.navCtrl.navigateRoot('home');
+        }
       } else {
         this.title.next('Create Driver');
         this.driverForm.get('difficulty')?.setValue(DifficultyEnum.Clubman);
@@ -78,7 +85,6 @@ export class DriverFormPage implements OnInit, OnDestroy {
       const driver = this.driverForm.value as Driver;
       if (!driver.id) {
         this.driverService.addDriver(driver);
-        console.log(driver);
         this.driverService.setActiveDriver(driver);
         this.toast.success('Driver Created!');
         this.navCtrl.navigateRoot('world-map');

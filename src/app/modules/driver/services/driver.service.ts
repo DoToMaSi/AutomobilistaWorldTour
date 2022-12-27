@@ -29,6 +29,10 @@ export class DriverService {
     this.activeDriverSubj.next(driver);
   }
 
+  getDriverById(id: number) {
+    return this.driversSubj.getValue().find((driver) => driver.id === id);
+  }
+
   addDriver(driver: Driver) {
     const currentDrivers = this.driversSubj.getValue();
     currentDrivers.map((driver, index) => {
