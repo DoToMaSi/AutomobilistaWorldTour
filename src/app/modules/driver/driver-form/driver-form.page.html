@@ -15,6 +15,17 @@
           <ion-item fill="outline">
             <ion-label>Name</ion-label>
             <ion-input type="text" formControlName="name"></ion-input>
+            <ion-note *ngIf="hasError('name', 'required')" slot="error">Name is required!</ion-note>
+            <ion-note *ngIf="hasError('name', 'minLength')" slot="error">Name must be 3 characters long!</ion-note>
+          </ion-item>
+
+          <ion-item fill="outline">
+            <ion-label>Difficulty</ion-label>
+            <ion-select interface="popover" formControlName="difficulty">
+              <ion-select-option *ngFor="let difficulty of difficultyOptions" [value]="difficulty.value">
+                {{ difficulty.label }}
+              </ion-select-option>
+            </ion-select>
           </ion-item>
 
           <ion-button fill="outline" color="success" expand="block">

@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, take } from 'rxjs';
+import { BehaviorSubject, Subject, take, takeUntil } from 'rxjs';
+import { DifficultyEnum, DifficultySelect } from 'src/app/shared/utils/enums/difficulty.enum';
 
 @Component({
   selector: 'awt-driver-form',
@@ -14,9 +15,12 @@ export class DriverFormPage implements OnInit {
 
   title = new BehaviorSubject<string>('');
   driverForm = new FormGroup({
-    id: new FormControl(null),
-    name: new FormControl('', [Validators.required, Validators.minLength(3)])
-  })
+    id: new FormControl<number | null>(null),
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    difficulty: new FormControl<DifficultyEnum>(DifficultyEnum.Clubman, [Validators.required])
+  });
+  difficultyOptions = DifficultySelect();
+  subscribeSubj = new Subject();
 
   constructor(private route: ActivatedRoute) {}
 
@@ -28,6 +32,13 @@ export class DriverFormPage implements OnInit {
         this.title.next('Create Driver');
       }
     })
+
+    this.driverForm.get('difficulty')?.valueChanges.pipe(takeUntil(this.subscribeSubj)).subscribe((value) => {
+
+    });
   }
 
+  hasError(field: string, error: string) {
+    return (this.driverForm.get(field)?.touched && this.driverForm.get(field)?.hasError(error));
+  }
 }
