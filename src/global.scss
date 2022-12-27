@@ -39,3 +39,44 @@
 :root {
   --ion-font-family: 'Quicksand';
 }
+
+@mixin toast-button($color) {
+  border-left: 1px solid $color;
+  color: $color;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+ion-toast {
+  &.default-toast {
+    &::part(button) {
+      @include toast-button(var(--ion-color-warning));
+    }
+  }
+
+  &.success-toast {
+    --background: var(--ion-color-success);
+    --color: var(--ion-color-success-contrast);
+
+    &::part(message) {
+      font-weight: bold;
+    }
+
+    &::part(button) {
+      @include toast-button(var(--ion-color-success-contrast));
+    }
+  }
+
+  &.error-toast {
+    --background: var(--ion-color-danger);
+    --color: var(--ion-color-danger-contrast);
+
+    &::part(message) {
+      font-weight: bold;
+    }
+
+    &::part(button) {
+      @include toast-button(var(--ion-color-danger-contrast));
+    }
+  }
+}

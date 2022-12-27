@@ -4,6 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Subject, take, takeUntil } from 'rxjs';
 import { DifficultyDescription, DifficultyEnum, DifficultySelect } from 'src/app/shared/utils/enums/difficulty.enum';
 import { RaceLengthDescription, RaceLengthEnum, RaceLengthSelect } from 'src/app/shared/utils/enums/race-length.enum';
+import { ToastUtils } from 'src/app/shared/utils/toast.utils';
+import { Driver } from '../models/driver.model';
+import { DriverService } from '../services/driver.service';
 
 @Component({
   selector: 'awt-driver-form',
@@ -31,17 +34,11 @@ export class DriverFormPage implements OnInit, OnDestroy {
 
   subscribeSubj = new Subject();
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+      private route: ActivatedRoute, private driverService: DriverService, private toast: ToastUtils
+    ) {}
 
   ngOnInit() {
-    this.route.params.pipe(take(1)).subscribe((params) => {
-      if (params['id']) {
-        this.title.next('Edit Driver');
-      } else {
-        this.title.next('Create Driver');
-      }
-    })
-
     this.driverForm.get('difficulty')?.valueChanges.pipe(takeUntil(this.subscribeSubj)).subscribe((value) => {
       const chosenDifficulty = DifficultyDescription(value as DifficultyEnum);
       this.difficultyDescription.next(chosenDifficulty.difficulty);
@@ -53,8 +50,15 @@ export class DriverFormPage implements OnInit, OnDestroy {
       this.raceLengthDescription.next(chosenLength);
     });
 
-    this.driverForm.get('difficulty')?.setValue(DifficultyEnum.Clubman);
-    this.driverForm.get('raceLength')?.setValue(RaceLengthEnum.Medium);
+    this.route.params.pipe(take(1)).subscribe((params) => {
+      if (params['id']) {
+        this.title.next('Edit Driver');
+      } else {
+        this.title.next('Create Driver');
+        this.driverForm.get('difficulty')?.setValue(DifficultyEnum.Clubman);
+        this.driverForm.get('raceLength')?.setValue(RaceLengthEnum.Medium);
+      }
+    })
   }
 
   ngOnDestroy() {
@@ -64,5 +68,20 @@ export class DriverFormPage implements OnInit, OnDestroy {
 
   hasError(field: string, error: string) {
     return (this.driverForm.get(field)?.touched && this.driverForm.get(field)?.hasError(error));
+  }
+
+  saveDriver() {
+    this.driverForm.markAllAsTouched();
+    if (this.driverForm.valid) {
+      const driver = this.driverForm.value as Driver;
+      if (!driver.id) {
+        // this.driverService.addDriver(driver);
+        this.toast.success('Driver Created!');
+      } else {
+
+      }
+    } else {
+      this.toast.error(`Check the form fields before saving`);
+    }
   }
 }
