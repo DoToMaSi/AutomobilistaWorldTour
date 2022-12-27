@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/home/home.module').then( m => m.HomePageModule)
   },
   {
+    path: 'driver',
+    loadChildren: () => import('./modules/driver/driver.module').then( m => m.DriverModule)
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'

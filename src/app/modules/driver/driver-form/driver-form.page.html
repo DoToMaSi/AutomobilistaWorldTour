@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ (title | async) }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="driverForm" class="driver-form-section">
+    <ion-card class="driver-form-card">
+      <ion-card-content>
+        <ion-list class="driver-form-list">
+          <ion-item fill="outline">
+            <ion-label>Name</ion-label>
+            <ion-input type="text" formControlName="name"></ion-input>
+          </ion-item>
+
+          <ion-button fill="outline" color="success" expand="block">
+            Save Driver
+          </ion-button>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </form>
+</ion-content>
