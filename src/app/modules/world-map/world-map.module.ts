@@ -1,18 +1,13 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-import { IonicModule } from '@ionic/angular';
-
 import { WorldMapPageRoutingModule } from './world-map-routing.module';
-
 import { WorldMapPage } from './world-map.page';
+import { CoreModule } from 'src/app/core/core.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
+    CoreModule,
+    SharedModule,
     WorldMapPageRoutingModule
   ],
   declarations: [WorldMapPage]
