@@ -1,0 +1,7 @@
+{
+  "name": "AutomobilistaWorldTour",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
