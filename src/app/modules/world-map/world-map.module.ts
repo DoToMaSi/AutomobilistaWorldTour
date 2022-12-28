@@ -3,11 +3,13 @@ import { WorldMapPageRoutingModule } from './world-map-routing.module';
 import { WorldMapPage } from './world-map.page';
 import { CoreModule } from 'src/app/core/core.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { DisplayComponentsModule } from 'src/app/shared/components/display/display-components.module';
 
 @NgModule({
   imports: [
     CoreModule,
     SharedModule,
+    DisplayComponentsModule,
     WorldMapPageRoutingModule
   ],
   declarations: [WorldMapPage]
