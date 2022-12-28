@@ -1,16 +1,19 @@
 import { NgModule } from "@angular/core";
 import { CoreModule } from "src/app/core/core.module";
+import { CarItemComponent } from "./car-item/car-item.component";
 import { WorldTourIconComponent } from "./world-tour-icon/world-tour-icon.component";
 
 @NgModule({
   declarations: [
-    WorldTourIconComponent
+    WorldTourIconComponent,
+    CarItemComponent
   ],
   imports: [
     CoreModule
   ],
   exports: [
-    WorldTourIconComponent
+    WorldTourIconComponent,
+    CarItemComponent
   ]
 })
 

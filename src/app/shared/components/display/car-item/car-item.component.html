@@ -1,0 +1,20 @@
+<div *ngIf="car" class="car-item-wrapper">
+  <div class="car-item-div">
+    <section class="car-item-img">
+    </section>
+
+    <section class="car-item-name">
+      <label class="main-text"><b>{{ car.brand }}</b> {{ car.model }} {{ car.year }}</label>
+      <label>Class: {{ carClassLabel.get(car.carClass) }}</label>
+    </section>
+
+    <section class="car-item-actions">
+      <ion-button (click)="onBuy.emit(car)" *ngIf="context === 'dealership'" color="success">
+        <b>BUY: {{ car.basePrice | currency: 'BRL' : 'Cr.' : '1.2-2' }}</b>
+      </ion-button>
+      <ion-button (click)="onSell.emit(car)" *ngIf="context === 'garage'" color="danger">
+        <b>SELL: {{ car.basePrice | currency: 'BRL' : 'Cr.' : '1.2-2' }}</b>
+      </ion-button>
+    </section>
+  </div>
+</div>

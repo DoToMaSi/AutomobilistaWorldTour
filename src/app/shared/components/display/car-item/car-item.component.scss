@@ -1,0 +1,41 @@
+.car-item {
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &-div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  &-img {
+    background: url('/assets/ams-cars/550.PNG');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    width: 120px;
+    height: 53px;
+  }
+
+  &-name {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1 1 auto;
+
+    .main-text {
+      font-size: 20px;
+    }
+  }
+
+  &-subdiv {
+    display: flex;
+    width: 100%;
+  }
+}

@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { StockCarBrasilCorollaMock } from "src/app/shared/models/car.model";
 
 @Component({
   selector: 'cars-garage',
@@ -7,6 +8,8 @@ import { Component } from "@angular/core";
 })
 
 export class CarsComponent {
+
+  mockCar = StockCarBrasilCorollaMock;
 
   constructor() {}
 }
