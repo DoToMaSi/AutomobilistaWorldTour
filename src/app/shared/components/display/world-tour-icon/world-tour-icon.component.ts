@@ -11,7 +11,7 @@ export class WorldTourIconComponent implements OnInit {
   @ViewChild('wtIcon') wtIcon: any;
 
   @Input() icon = '';
-  @Input() title = '';
+  @Input() iconTitle = '';
   @Input() tooltip = '';
 
   constructor(private animationCtrl: AnimationController) { }

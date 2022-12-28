@@ -1,28 +1,52 @@
 .world-map-section {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  background: url('/assets/ams-world-map.png');
-  background-position: 0px;
+  @media screen and (max-width: 650px) {
+    display: flex;
+    padding: 24px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 
-  #garage {
-
+    > * {
+      padding: 24px;
+      min-width: 33.33333%;
+    }
   }
 
-  #dealership {
+  @media screen and (min-width: 650px) {
+    width: 100%;
+    height: 100%;
+    justify-content: space-evenly;
+    background: url('/assets/ams-world-map.png');
+    background-position: center;
 
-  }
+    #garage {
+      left: 48%;
+      top: 41%;
+      position: absolute;
+    }
 
-  #league {
+    #dealership {
+      left: 66%;
+      top: 20%;
+      position: absolute;
+    }
 
-  }
+    #league {
+      left: 68%;
+      top: 61%;
+      position: absolute;
+    }
 
-  #challenges {
+    #challenges {
+      left: 18%;
+      top: 46%;
+      position: absolute;
+    }
 
-  }
-
-  #offers {
-
+    #offers {
+      left: 35%;
+      top: 15%;
+      position: absolute;
+    }
   }
 }
