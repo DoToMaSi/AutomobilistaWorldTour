@@ -2,6 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: all 0.15s ease-in;
+  transform: translateY(0px);
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-10px);
+  }
   // justify-content: center;
 
   & > .icon-card {

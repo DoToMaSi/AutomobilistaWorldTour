@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AnimationController } from '@ionic/angular';
 
 @Component({
   selector: 'awt-world-tour-icon',
@@ -7,12 +8,15 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class WorldTourIconComponent implements OnInit {
 
+  @ViewChild('wtIcon') wtIcon: any;
+
   @Input() icon = '';
   @Input() title = '';
   @Input() tooltip = '';
 
-  constructor() { }
+  constructor(private animationCtrl: AnimationController) { }
 
-  ngOnInit() {}
-
+  ngOnInit() {
+    console.log(this.wtIcon);
+  }
 }
