@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'awt-world-map',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorldMapPage implements OnInit {
 
-  constructor() { }
+  constructor(private navCtrl: NavController) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  accessGarage() {
+    this.navCtrl.navigateForward('garage');
   }
-
 }

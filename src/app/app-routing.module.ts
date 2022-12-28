@@ -3,6 +3,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
     path: 'home',
     loadChildren: () => import('./modules/home/home.module').then( m => m.HomePageModule)
   },
@@ -11,13 +16,12 @@ const routes: Routes = [
     loadChildren: () => import('./modules/driver/driver.module').then( m => m.DriverModule)
   },
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  {
     path: 'world-map',
     loadChildren: () => import('./modules/world-map/world-map.module').then( m => m.WorldMapPageModule)
+  },
+  {
+    path: 'garage',
+    loadChildren: () => import('./modules/garage/garage.module').then( m => m.GarageModule)
   },
 ];
 
