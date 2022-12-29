@@ -146,3 +146,12 @@ export const CarClassEnumLabel = new Map<CarClassEnum, string>([
   [CarClassEnum.TouringCar70, 'Touring Car 70s'],
   [CarClassEnum.TSICup, 'Vokswagen TSI Cup'],
 ])
+
+export function CarClassSelect() {
+  return [...CarClassEnumLabel].map((carClass) => {
+    return {
+      value: carClass[0],
+      label: carClass[1],
+    }
+  })
+}

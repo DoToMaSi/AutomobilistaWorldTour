@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit } from '@angular/core';
-import { CarClassEnumLabel } from 'src/app/shared/enums/car-class.enum';
+import { CarClassEnumLabel } from 'src/app/shared/enums/vehicle/car-class.enum';
 import { Car } from 'src/app/shared/models/car.model';
 
 @Component({
