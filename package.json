@@ -26,6 +26,7 @@
     "@capacitor/keyboard": "^5.0.0",
     "@capacitor/status-bar": "^5.0.0",
     "@ionic/angular": "^7.5.1",
+    "@ionic/storage-angular": "^4.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "ionicons": "^6.0.3",
     "rxjs": "^7.5.0",

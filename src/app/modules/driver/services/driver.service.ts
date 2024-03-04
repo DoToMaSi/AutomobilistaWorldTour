@@ -1,6 +1,6 @@
 import { Injectable, signal } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
 import { Driver } from "../models/driver.model";
+import { StorageService } from 'src/app/core/services/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class DriverService {
   private drivers$ = signal<Driver[]>([]);
   private activeDriver$ = signal<any>(null);
 
-  constructor() { }
+  constructor(private storage: StorageService) { }
 
   get drivers() {
     return this.drivers$();
@@ -21,8 +21,12 @@ export class DriverService {
     return this.activeDriver$();
   }
 
-  loadDrivers() {
-    // Implement when Storage is installed.
+  async loadDrivers() {
+    return await this.storage.get('drivers');
+  }
+
+  async saveDrivers() {
+    return await this.storage.set('drivers', this.drivers$());
   }
 
   setActiveDriver(driver: Driver) {
@@ -41,10 +45,13 @@ export class DriverService {
 
     driver.id = (currentDrivers.length + 1);
     this.drivers$.set([...currentDrivers, driver]);
+
+    this.saveDrivers();
   }
 
   removeDriver(driver: Driver) {
-    // const currentDrivers = this.driversSubj.getValue();
-    // this.driversSubj.next([...currentDrivers, driver]);
+    const currentDrivers = this.drivers;
+    currentDrivers.splice(currentDrivers.indexOf(driver));
+    this.drivers$.set(currentDrivers);
   }
 }
