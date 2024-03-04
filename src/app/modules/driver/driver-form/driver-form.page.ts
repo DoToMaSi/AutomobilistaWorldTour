@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IonRouterOutlet, NavController } from '@ionic/angular';
@@ -18,10 +18,10 @@ import { DriverService } from '../services/driver.service';
 
 export class DriverFormPage implements OnInit, OnDestroy {
 
-  title = new BehaviorSubject<string>('');
-  difficultyDescription = new BehaviorSubject<string>('');
-  aggressionDescription = new BehaviorSubject<string>('');
-  raceLengthDescription = new BehaviorSubject<string>('');
+  title = signal<string>('');
+  difficultyDescription = signal<string>('');
+  aggressionDescription = signal<string>('');
+  raceLengthDescription = signal<string>('');
 
   driverForm = new FormGroup({
     id: new FormControl<number | null>(null),
@@ -36,34 +36,34 @@ export class DriverFormPage implements OnInit, OnDestroy {
   subscribeSubj = new Subject();
 
   constructor(
-      private route: ActivatedRoute, private driverService: DriverService, private toast: ToastUtils,
-      private navCtrl: NavController, private routerOutlet: IonRouterOutlet
-    ) {}
+    private route: ActivatedRoute, private driverService: DriverService, private toast: ToastUtils,
+    private navCtrl: NavController, private routerOutlet: IonRouterOutlet
+  ) { }
 
   ngOnInit() {
     this.driverForm.get('difficulty')?.valueChanges.pipe(takeUntil(this.subscribeSubj)).subscribe((value) => {
       const chosenDifficulty = DifficultyDescription(value as DifficultyEnum);
-      this.difficultyDescription.next(chosenDifficulty.difficulty);
-      this.aggressionDescription.next(chosenDifficulty.aggression);
+      this.difficultyDescription.set(chosenDifficulty.difficulty);
+      this.aggressionDescription.set(chosenDifficulty.aggression);
     });
 
     this.driverForm.get('raceLength')?.valueChanges.pipe(takeUntil(this.subscribeSubj)).subscribe((value) => {
       const chosenLength = RaceLengthDescription(value as RaceLengthEnum);
-      this.raceLengthDescription.next(chosenLength);
+      this.raceLengthDescription.set(chosenLength);
     });
 
     this.route.params.pipe(take(1)).subscribe((params) => {
       if (params['id']) {
-        this.title.next('Edit Driver');
+        this.title.set('Edit Driver');
         const driver = this.driverService.getDriverById(parseInt(params['id'], 10));
 
         if (driver) {
-          this.driverForm.patchValue({...driver});
+          this.driverForm.patchValue({ ...driver });
         } else {
           this.navCtrl.navigateRoot('home');
         }
       } else {
-        this.title.next('Create Driver');
+        this.title.set('Create Driver');
         this.driverForm.get('difficulty')?.setValue(DifficultyEnum.Clubman);
         this.driverForm.get('raceLength')?.setValue(RaceLengthEnum.Medium);
       }
@@ -83,6 +83,12 @@ export class DriverFormPage implements OnInit, OnDestroy {
     this.driverForm.markAllAsTouched();
     if (this.driverForm.valid) {
       const driver = this.driverForm.value as Driver;
+
+      // init Driver
+      driver.experience = 0;
+      driver.credits = 40000;
+      driver.garage = [];
+
       if (!driver.id) {
         this.driverService.addDriver(driver);
         this.driverService.setActiveDriver(driver);

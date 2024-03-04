@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="home" text=""></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ (title | async) }}</ion-title>
+    <ion-title>{{ (title ()) }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -39,11 +39,12 @@
 
           <section class="chosen-parameters-section">
             <h6><b>Recommended Settings:</b></h6>
-            <label>Keep in mind that these are suggestions and you are free to fine tune them accordingly in-game.</label>
+            <label>Keep in mind that these are suggestions and you are free to fine tune them accordingly
+              in-game.</label>
             <ul>
-              <li><b>Difficulty (In-Game)</b>: {{ difficultyDescription | async }}</li>
-              <li><b>Aggression (In-Game)</b>: {{ aggressionDescription | async }}</li>
-              <li><b>Race Lengths</b>: {{ raceLengthDescription | async }}</li>
+              <li><b>Difficulty (In-Game)</b>: {{ difficultyDescription() }}</li>
+              <li><b>Aggression (In-Game)</b>: {{ aggressionDescription() }}</li>
+              <li><b>Race Lengths</b>: {{ raceLengthDescription() }}</li>
             </ul>
           </section>
 

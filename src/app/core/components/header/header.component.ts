@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, signal } from '@angular/core';
+import { getDriverLevel } from 'src/app/modules/driver/models/driver.model';
+import { DriverService } from 'src/app/modules/driver/services/driver.service';
 
 @Component({
   selector: 'awt-header-toolbar',
@@ -12,8 +14,13 @@ export class HeaderComponent implements OnInit {
   @Input() showBackButton = false;
   @Input() breadcrumbText = ' Return';
 
-  constructor() { }
+  currentLevel = signal(0)
 
-  ngOnInit() { }
+  constructor(private driverService: DriverService) { }
+
+  ngOnInit() {
+    this.currentLevel.set(getDriverLevel(this.driverService.activeDriver));
+    console.log(this.currentLevel());
+  }
 
 }

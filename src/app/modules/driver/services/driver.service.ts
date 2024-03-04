@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, signal } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { Driver } from "../models/driver.model";
 
@@ -8,17 +8,17 @@ import { Driver } from "../models/driver.model";
 
 export class DriverService {
 
-  private driversSubj = new BehaviorSubject<Driver[]>([]);
-  private activeDriverSubj = new BehaviorSubject<Driver | null>(null);
+  private drivers$ = signal<Driver[]>([]);
+  private activeDriver$ = signal<any>(null);
 
-  constructor() {}
+  constructor() { }
 
   get drivers() {
-    return this.driversSubj.asObservable();
+    return this.drivers$();
   }
 
   get activeDriver() {
-    return this.activeDriverSubj.asObservable();
+    return this.activeDriver$();
   }
 
   loadDrivers() {
@@ -26,21 +26,21 @@ export class DriverService {
   }
 
   setActiveDriver(driver: Driver) {
-    this.activeDriverSubj.next(driver);
+    this.activeDriver$.set(driver);
   }
 
   getDriverById(id: number) {
-    return this.driversSubj.getValue().find((driver) => driver.id === id);
+    return this.drivers.find((driver) => driver.id === id);
   }
 
   addDriver(driver: Driver) {
-    const currentDrivers = this.driversSubj.getValue();
+    const currentDrivers = this.drivers;
     currentDrivers.map((driver, index) => {
       driver.id = (index + 1)
     })
 
     driver.id = (currentDrivers.length + 1);
-    this.driversSubj.next([...currentDrivers, driver]);
+    this.drivers$.set([...currentDrivers, driver]);
   }
 
   removeDriver(driver: Driver) {
